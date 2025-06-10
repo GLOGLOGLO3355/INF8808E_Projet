@@ -1,16 +1,20 @@
+# app.py
 
 # -*- coding: utf-8 -*-
 
-import json
-
 import dash
-from dash import html
-from dash import dcc
+from dash import html, dcc
 
-import pandas as pd
-
+import histogram
 import preprocess
-import bubble
 
 app = dash.Dash(__name__)
 app.title = 'Pre-Release | INF8808'
+
+app.layout = html.Div(children=[
+    html.H1("Academic Factors Dashboard"),
+    dcc.Graph(
+        id='example-histogram',
+        figure=histogram.get_histogram()
+    )
+])
