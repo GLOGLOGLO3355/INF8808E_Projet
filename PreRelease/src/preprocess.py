@@ -1,4 +1,5 @@
-import pandas as pd
+import os
 
-def load_data():
-    return pd.read_csv("assets/data/StudentPerformanceFactors.csv", sep=";")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.join(BASE_DIR, "assets", "data", "StudentPerformanceFactors.csv")
+df = pd.read_csv(data_path, sep=";")
