@@ -21,35 +21,33 @@ app.layout = html.Div(
         html.H1("Demo Release – INF8808E – Summer 2025"),
 
     html.Div([
-    html.H2("Understanding Academic Performance: A Data-Driven Exploration"),
-    html.P(
-        "Academic performance is shaped by a wide range of personal, familial, and institutional factors. "
-        "While some influences like study hours or past exam scores are direct and measurable, others (such as parental involvement, "
-        "motivation, sleep, or socioeconomic background) may be harder to quantify but just as impactful."
-    ),
-    html.P([
-        "This interactive dashboard explores these multifaceted relationships using synthetic but realistic student data. ",
-        "The dataset, available on Kaggle, contains 6,607 entries and 20 variables, "
-        "covering a wide range of academic, behavioral, and contextual features such as study habits, family income, school type, "
-        "peer influence, parental education, and learning disabilities."
-        ,
-        html.Br(),
-        html.A(" View the dataset on Kaggle",
-               href="https://www.kaggle.com/datasets/lainguyn123/student-performance-factors",
-               target="_blank",
-               style={"textDecoration": "underline", "color": "#1a73e8"})
-    ]),
-    html.P(
-        "Through a series of visualizations, we aim to answer a central question: "
-        "to what extent do lifestyle, support systems, and external conditions influence students’ academic outcomes?"
-    ),
-    html.P(
-        "Each section below highlights a different angle of this complex puzzle, from the role of parental education to the impact of sleep and tutoring. "
-        "The goal of this exploratory analysis is not only to identify patterns, but also to encourage thoughtful reflection on how academic support strategies "
-        "can be better targeted and personalized."
-    )
-], style={"maxWidth": "800px", "marginBottom": "60px"}),
-
+        html.H2("Understanding Academic Performance: A Data-Driven Exploration"),
+        html.P(
+            "Sometimes harder to put a value on are factors that shape academic performance. "
+            "Where some influences such as study hours or past exam scores work directly and measurably, "
+            "other factors—could be parental support, motivation, sleep, or socioeconomic background—are equally influential."
+        ),
+        html.P([
+            "This interactive dashboard explores these multifaceted relationships with synthetic and yet plausible student data. "
+            "The dataset, found here on Kaggle, comprises 6,607 entries and 20 variables that reflect a wide range of academic, "
+            "behavioral, and contextual traits into study habits, family income, school type, peer influence, parental education, "
+            "and learning disabilities.",
+            html.Br(),
+            html.A(" View the dataset on Kaggle",
+                href="https://www.kaggle.com/datasets/lainguyn123/student-performance-factors",
+                target="_blank",
+                style={"textDecoration": "underline", "color": "#1a73e8"})
+        ]),
+        html.P(
+            "The objective of the set of visualizations is to answer this main question: do lifestyle, support, and other external "
+            "conditions affect students' academic outcomes and to what extent?"
+        ),
+        html.P(
+            "The sections below explore various horizons in this multi-faceted puzzle, from parental education to the influence of sleep and tutoring. "
+            "This exploratory investigation aims not only to identify trends that support academic achievement, but also to stimulate further musings about "
+            "how academic support strategies can be refined and made more effective."
+        )
+    ], style={"maxWidth": "800px", "marginBottom": "60px"}),
         html.Div([
             html.H2("Parental Involvement and Education"),
             html.P(
@@ -104,10 +102,11 @@ app.layout = html.Div(
 
         html.Div([
         html.P(
-            "Overall, the data suggests that the final exam may have been more challenging than the previous one, as the median score improvement is consistently negative "
-            "across all study efforts and tutoring levels. However, despite this downward trend, a small but noticeable difference is observed: students who studied more hours "
-            "tended to perform slightly better than those who did not. "
-            "While this does not indicate a dramatic improvement, it highlights the value of consistent academic effort, even in more difficult contexts."
+            "Overall, the data indicate that the final exam might have been more difficult than the previous one, "
+            "with median score improvement consistently negative across the range of study efforts and levels of tutoring. "
+            "But along this downward trend, a small, noticeable difference appears, where students who studied more hours tended "
+            "to do a little better than those who did not. This nuance does not imply that they performed drastically better, "
+            "instead emphasizing the importance of consistent academic effort, even in a more difficult environment."
         )
     ], style={"maxWidth": "800px", "marginTop": "60px", "marginBottom": "60px"}),
 
@@ -194,24 +193,24 @@ app.layout = html.Div(
         ], style={"display": "flex", "justifyContent": "center"}),
     ], style={"maxWidth": "1000px", "marginTop": "50px"}),
 
-    html.Div([
-        html.H2("Conclusion: Unveiling the Complexity of Academic Success"),
-        html.P(
-            "This data-driven exploration highlights how academic performance is the result of a complex web of interconnected factors. "
-            "From the foundational role of parental education and involvement, to the influence of tutoring, sleep, and peer support, "
-            "no single factor operates in isolation. Instead, academic success emerges when structural, social, and behavioral supports align. "
-            "Students benefit most when they are surrounded by informed, engaged families, have consistent access to quality education and resources, "
-            "maintain balanced sleep habits, and are motivated by supportive peers and environments."
-        ),
-        html.P(
-            "While some factors like study effort or school type show relatively direct relationships with performance, others, such as sleep or disabilities, "
-            "reveal more nuanced, non-linear patterns. Notably, certain groups (such as students with learning disabilities or those from lower-income backgrounds) "
-            "require more targeted support to ensure equitable outcomes."
-        ),
-        html.P(
-            "In the end, helping students succeed means looking at the full picture, and making sure no one is left behind."
-        )
-    ], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center"})
+html.Div([
+    html.H2("Conclusion: Unveiling the Complexity of Academic Success"),
+    html.P(
+        "This data-driven exploration highlights how academic performance is the result of a complex web of interconnected factors. "
+        "From the downside of parental education and involvement into tutoring, sleep, and peer support, none of these factors work in isolation. "
+        "Academic success is achieved when structural, social, and behavioral supports align. Students gain most from an environment that comprises families cognizant of education, "
+        "regular access to good education and resources, ability to maintain healthy sleep habits, and motivation from supportive peers and surroundings."
+    ),
+    html.P(
+        "While some factors show relatively direct relationships with performance, such as study hours or school category, the remaining factors, such as sleep or disabilities, "
+        "may have more nuanced behaviors and non-linear relationships. At the very least, these variations are of critical importance for some groups (such as people with learning disabilities "
+        "or disadvantaged people from lower social-economy backgrounds) who need to be targeted to achieve even results."
+    ),
+    html.P(
+        "In the end, helping students succeed means looking at the full picture, and making sure no one is left behind."
+    )
+], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center"})
+
 
 
 
