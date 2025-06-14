@@ -35,7 +35,7 @@ def get_binary_disability_heatmap():
         row = []
         for x in x_labels:
             dominant = pivot.at[y, x] if x in pivot.columns else "N/A"
-            interval = f"{y}-{y+5}"
+            interval = f"{y-2.5}-{y+2.5}"
             row.append(f"Tutoring: {x}<br>Score: {interval}<br>Dominant: {dominant}")
         hover_text.append(row)
 

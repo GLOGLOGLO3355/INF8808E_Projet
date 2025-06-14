@@ -4,11 +4,14 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 
-import preprocess
 import sunburst
 import scatter_plot
 import score_improvement
 import numeric_heatmap
+import dendrogram
+import extracurricular_boxplot
+import alluvial_diagram
+import sleep_heatmap
 
 app = dash.Dash(__name__)
 app.title = 'Pre-Release | INF8808'
@@ -87,15 +90,15 @@ app.layout = html.Div(
         ], style={"maxWidth": "1000px", "marginTop": "50px"}),
 
         html.Div([
-            html.H2("Simplified View: Score Improvement Separately"),
+            html.H3("Simplified View: Score Improvement Separately"),
             html.P(
                 "These two graphs isolate the individual effects of tutoring and study hours on score improvement. "
                 "We calculate the score difference (final - previous) and show how it varies depending on each factor."
             ),
-            html.H3("Score Improvement by Tutoring Sessions"),
+            html.H4("Score Improvement by Tutoring Sessions"),
             dcc.Graph(figure=score_improvement.get_by_tutoring()),
 
-            html.H3("Score Improvement by Study Hours"),
+            html.H4("Score Improvement by Study Hours"),
             dcc.Graph(figure=score_improvement.get_by_study_hours())
         ], style={"maxWidth": "1000px", "marginTop": "50px"}),
 
@@ -124,6 +127,95 @@ app.layout = html.Div(
         dcc.Graph(figure=numeric_heatmap.get_binary_disability_heatmap())
     ], style={"maxWidth": "1000px", "marginTop": "50px"}),
 
+    html.Div([
+    html.H2("Visualizing Motivation Through Social and Environmental Factors"),
+    html.P(
+        "This dendrogram visualizes the similarity between students based on key performance indicators such as study hours, "
+        "past exam scores, and tutoring sessions. It helps identify natural clusters or groups of students with similar academic behaviors."
+    ),
+    html.Div([
+        dcc.Graph(figure=dendrogram.get_tree_plot())
+    ], style={"display": "flex", "justifyContent": "center"}),
+    html.P(
+        "This section examines the impact of peer influence and distance on student motivation. "
+        "This linear dendrogram reveals that students with positive peer influence and living near their school are more likely "
+        "to exhibit high motivation, compared to those with negative peer influence and far distances, where a very small percentage "
+        "show high motivation. Moderate distances and neutral influence result in a balanced distribution, with medium motivation dominating. "
+        "The thicker lines for near distances with positive influence highlight a stronger clustering of high motivation, suggesting that "
+        "proximity to school and supportive peers significantly boost motivation. This insight is valuable for parents considering school "
+        "location and for schools fostering positive peer environments."
+    )], style={"maxWidth": "1000px", "marginTop": "50px"}),
+    html.Div([
+        html.H2("Academic Performance and Extracurricular Activities"),
+        html.P(
+            "This chart explores whether involvement in extracurricular activities correlates with improved academic performance. "
+            "The box plot shows that the median score for students who participate in extracurricular activities is slightly higher (70) "
+            "than for those who do not (69). The interquartile range is almost identical for both sides, it measures the spread of the middle 50% of scores, "
+            "between the 25th and the 75th percentiles. The similarity in this value, around 12.5 for both, shows that the students’ scores are similarly distributed "
+            "regardless of extracurricular participation. While there is a  difference in the median, the distribution suggests that participation in extracurricular activities "
+            "does not negatively affect academic performance and might even offer a very slight advantage."
+        ),
+    html.Div([
+        dcc.Graph(figure=extracurricular_boxplot.get_extracurricular_boxplot())
+    ], style={"display": "flex", "justifyContent": "center"}),
+
+    html.Div([
+        html.H2("School Type, Resources and Exam Scores"),
+        html.P(
+            "This Alluvial diagram shows how family income and school type affect teacher quality and ultimately academic performance. "
+            "To improve readability, exam scores have been grouped into categories such as Excellent, Good, or Pass. "
+            "This allows us to better understand patterns without being overwhelmed by too much detail."
+        ),
+        dcc.Graph(figure=alluvial_diagram.get_alluvial_diagram()),
+        html.P(
+            "We can observe that students from high-income families are more likely to attend private schools, whereas students from low-income families "
+            "tend to attend public schools, highlighting a clear socioeconomic divide in access to educational institutions. Private schools are associated "
+            "with a diverse range of teacher quality, while public schools exhibit a broader mix including more medium and low-quality teaching. The quality "
+            "of teaching influences final grades, with varying exam scores resulting from different teacher quality levels. The flow lines in the diagram "
+            "illustrate this dynamic, showing that thicker flows from various teacher qualities span the exam score range, suggesting that while teacher quality "
+            "plays a role, other factors also contribute to student success."
+        )
+    ], style={"maxWidth": "1000px", "marginTop": "50px"}),
+    html.Div([
+        html.H2("Attendance Based on Sleep and Motivation"),
+        html.P(
+            "We can see that students with medium motivation and 7 hours of sleep show the highest attendance levels, "
+            "which is indicated by the darkest blue segment in that column. Additionally, students with extremely high or "
+            "extremely low motivation do not outperform those in the medium range. Furthermore, attendance declines significantly "
+            "at the extremes of sleep duration, particularly below 5 hours and above 8 hours, regardless of motivation. These bars remain "
+            "across all motivation levels, which indicates that neither high motivation can compensate for sleep deprivation, nor can longer "
+            "sleep offset the effects of low motivation. The students getting 9 or 10 hours of sleep do not necessarily have low attendance "
+            "even though it is a light colour, it is mainly because there are not many students getting that many hours of sleep. This pattern "
+            "highlights a non-linear relationship between sleep and attendance: while moderate sleep boosts participation, sleep deprivation "
+            "correlates with reduced attendance."
+        ),
+     html.Div([
+        dcc.Graph(figure=sleep_heatmap.get_sleep_motivation_heatmap())
+        ], style={"display": "flex", "justifyContent": "center"}),
+    ], style={"maxWidth": "1000px", "marginTop": "50px"}),
+
+    html.Div([
+        html.H2("Conclusion: Unveiling the Complexity of Academic Success"),
+        html.P(
+            "This data-driven exploration highlights how academic performance is the result of a complex web of interconnected factors. "
+            "From the foundational role of parental education and involvement, to the influence of tutoring, sleep, and peer support, "
+            "no single factor operates in isolation. Instead, academic success emerges when structural, social, and behavioral supports align. "
+            "Students benefit most when they are surrounded by informed, engaged families, have consistent access to quality education and resources, "
+            "maintain balanced sleep habits, and are motivated by supportive peers and environments."
+        ),
+        html.P(
+            "While some factors like study effort or school type show relatively direct relationships with performance, others, such as sleep or disabilities, "
+            "reveal more nuanced, non-linear patterns. Notably, certain groups (such as students with learning disabilities or those from lower-income backgrounds) "
+            "require more targeted support to ensure equitable outcomes."
+        ),
+        html.P(
+            "In the end, helping students succeed means looking at the full picture, and making sure no one is left behind."
+        )
+    ], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center"})
+
+
+
+    ], style={"maxWidth": "1000px", "marginTop": "50px"})
     ],
 
     style={
