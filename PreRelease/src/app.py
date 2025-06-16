@@ -23,7 +23,7 @@ app.layout = html.Div(
     html.Div([
         html.H2("Understanding Academic Performance: A Data-Driven Exploration"),
         html.P(
-            "It is sometimes hard to put a value on the factors that influence academic performance. "
+            "Understanding how various factors affect academic performance can be challenging. "
             "Where some influences such as study hours or past exam scores work directly and measurably, "
             "other factors—could be parental support, motivation, sleep, or socioeconomic background—are equally influential."
         ),
@@ -225,9 +225,6 @@ html.Div([
         "may have more nuanced behaviors and non-linear relationships. At the very least, these variations are of critical importance for some groups (such as people with learning disabilities "
         "or disadvantaged people from lower socioeconomic backgrounds) who need to be targeted to achieve even results."
     ),
-    html.P(
-        "In the end, helping students succeed means looking at the full picture, and making sure no one is left behind."
-    )
 ], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center", "marginLeft": "auto", "marginRight": "auto"}),
 
 

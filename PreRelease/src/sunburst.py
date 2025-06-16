@@ -8,14 +8,18 @@ def get_sunburst():
     df = df[df["Parental_Education_Level"].isin(["High School", "College", "Postgraduate"])]
     df = df[df["Parental_Involvement"] != "Other"]
 
+    display_labels = {
+        "High School": "High School",
+        "College": "University",
+        "Postgraduate": "Postgraduate"
+    }
+
     fig = make_subplots(
         rows=1,
         cols=3,
         specs=[[{"type": "domain"}, {"type": "domain"}, {"type": "domain"}]],
         subplot_titles=[
-            "<b>High School</b>",
-            "<b>College</b>",
-            "<b>Postgraduate</b>"
+            f"<b>{display_labels[level]}</b>" for level in ["High School", "College", "Postgraduate"]
         ],
         column_widths=[0.3, 0.3, 0.3]
     )
@@ -29,7 +33,7 @@ def get_sunburst():
             go.Pie(
                 labels=labels,
                 values=values,
-                name=level,
+                name=display_labels[level],  # Display override here
                 hovertemplate='%{label}<br>Count=%{value}<extra></extra>',
                 showlegend=(i == 1)
             ),
