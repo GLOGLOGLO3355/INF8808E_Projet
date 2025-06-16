@@ -23,14 +23,14 @@ app.layout = html.Div(
     html.Div([
         html.H2("Understanding Academic Performance: A Data-Driven Exploration"),
         html.P(
-            "Sometimes harder to put a value on are factors that shape academic performance. "
+            "It is sometimes hard to put a value on the factors that influence academic performance. "
             "Where some influences such as study hours or past exam scores work directly and measurably, "
             "other factors—could be parental support, motivation, sleep, or socioeconomic background—are equally influential."
         ),
         html.P([
             "This interactive dashboard explores these multifaceted relationships with synthetic and yet plausible student data. "
-            "The dataset, found here on Kaggle, comprises 6,607 entries and 20 variables that reflect a wide range of academic, "
-            "behavioral, and contextual traits into study habits, family income, school type, peer influence, parental education, "
+            "The dataset, found here on Kaggle, comprises 6 607 entries and 20 variables that reflect a wide range of academic, "
+            "behavioral, and contextual traits, including study habits, family income, school type, peer influence, parental education, "
             "and learning disabilities.",
             html.Br(),
             html.A(" View the dataset on Kaggle",
@@ -111,7 +111,7 @@ app.layout = html.Div(
 
         html.Div([
         html.P(
-            "Overall, the data indicate that the final exam might have been more difficult than the previous one, "
+            "Overall, the data indicates that the final exam might have been more difficult than the previous one, "
             "with median score improvement consistently negative across the range of study efforts and levels of tutoring. "
             "But along this downward trend, a small, noticeable difference appears, where students who studied more hours tended "
             "to do a little better than those who did not. This nuance does not imply that they performed drastically better, "
@@ -223,7 +223,7 @@ html.Div([
     html.P(
         "While some factors show relatively direct relationships with performance, such as study hours or school category, the remaining factors, such as sleep or disabilities, "
         "may have more nuanced behaviors and non-linear relationships. At the very least, these variations are of critical importance for some groups (such as people with learning disabilities "
-        "or disadvantaged people from lower social-economy backgrounds) who need to be targeted to achieve even results."
+        "or disadvantaged people from lower socioeconomic backgrounds) who need to be targeted to achieve even results."
     ),
     html.P(
         "In the end, helping students succeed means looking at the full picture, and making sure no one is left behind."
