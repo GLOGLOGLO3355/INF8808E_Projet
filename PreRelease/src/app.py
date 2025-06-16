@@ -4,7 +4,7 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 
-import sunburst
+import grouped_bar
 import scatter_plot
 import score_improvement
 import numeric_heatmap
@@ -53,11 +53,11 @@ app.layout = html.Div(
             html.P(
                 "The visualization probes the relationship between parental level of education and the degree to which a parent engages in his or her children's academic life. "
                 "Surprisingly, and contrary to assumptions that a steep upward trend is expected, the involvement distribution tends to remain consistent across the different levels of education. "
-                "In all three groups (High School, College, and Postgraduate) the medium category of involvement is the prevailing one and consistently represents just over half of the parents."
+                "In all three groups (High School, University, and Postgraduate) the medium category of involvement is the prevailing one and consistently represents just over half of the parents."
             ),
 
             html.P(
-                "Parents who have 'High' levels of involvement sit at roughly the same levels over the three education categories, with slight variations: 28.7% for high school, 29.9% for college, and 28% for postgraduate. "
+                "Parents who have 'High' levels of involvement sit at roughly the same levels over the three education categories, with slight variations: 28.7% for high school, 29.9% for university, and 28% for postgraduate. "
                 "In other words, it is not the case that high school parents are much less involved or that parents who are postgraduates are highly involved. "
                 "The lowest scale, 'Low,' meets some 20% over all the categories with minimal fluctuation. That means parents with higher education do not necessarily ensure it's less likely that they will be Low-involved parents."
             ),
@@ -72,7 +72,7 @@ app.layout = html.Div(
 
         dcc.Graph(
             id='example-sunburst',
-            figure=sunburst.get_sunburst()
+            figure=grouped_bar.get_grouped_bar_chart()
         ),
 
         html.Div([
