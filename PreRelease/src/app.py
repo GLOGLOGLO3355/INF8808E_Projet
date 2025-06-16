@@ -51,14 +51,23 @@ app.layout = html.Div(
         html.Div([
             html.H2("Parental Involvement and Education"),
             html.P(
-                "This visualization investigates whether parental involvement is correlated with higher educational levels. "
-                "The chart suggests a general pattern: a greater proportion of parents with a “High” involvement are found among those "
-                "whose parents have attained a college or a postgraduate degree. Involvement of parents who have only completed high school "
-                "tends to be more evenly distributed, with a higher share in the “Low” category. Furthermore, the visualization indirectly "
-                "raises other questions regarding parental involvement. The larger the portion of the visualisation, the better the student’s "
-                "academic performance. Overall, the chart suggests that more educated parents could directly or indirectly contribute to better "
-                "academic performance in their children."
+                "The visualization probes the relationship between parental level of education and the degree to which a parent engages in his or her children's academic life. "
+                "Surprisingly, and contrary to assumptions that a steep upward trend is expected, the involvement distribution tends to remain consistent across the different levels of education. "
+                "In all three groups (High School, College, and Postgraduate) the medium category of involvement is the prevailing one and consistently represents just over half of the parents."
+            ),
+
+            html.P(
+                "Parents who have 'High' levels of involvement sit at roughly the same levels over the three education categories, with slight variations: 28.7% for high school, 29.9% for college, and 28% for postgraduate. "
+                "In other words, it is not the case that high school parents are much less involved or that parents who are postgraduates are highly involved. "
+                "The lowest scale, 'Low,' meets some 20% over all the categories with minimal fluctuation. That means parents with higher education do not necessarily ensure it's less likely that they will be Low-involved parents."
+            ),
+
+            html.P(
+                "Overall, this visualization challenges the assumption that more educated parents are necessarily more engaged. "
+                "Instead, it points to a relatively uniform distribution of parental involvement, regardless of education level. "
+                "This may imply that other factors (such as work schedules, cultural values, or access to school communities) could be just as influential as formal education in shaping parental support behaviors."
             )
+
         ], style={"maxWidth": "800px", "marginBottom": "30px"}),
 
         dcc.Graph(
@@ -178,16 +187,26 @@ app.layout = html.Div(
     html.Div([
         html.H2("Attendance Based on Sleep and Motivation"),
         html.P(
-            "We can see that students with medium motivation and 7 hours of sleep show the highest attendance levels, "
-            "which is indicated by the darkest blue segment in that column. Additionally, students with extremely high or "
-            "extremely low motivation do not outperform those in the medium range. Furthermore, attendance declines significantly "
-            "at the extremes of sleep duration, particularly below 5 hours and above 8 hours, regardless of motivation. These bars remain "
-            "across all motivation levels, which indicates that neither high motivation can compensate for sleep deprivation, nor can longer "
-            "sleep offset the effects of low motivation. The students getting 9 or 10 hours of sleep do not necessarily have low attendance "
-            "even though it is a light colour, it is mainly because there are not many students getting that many hours of sleep. This pattern "
-            "highlights a non-linear relationship between sleep and attendance: while moderate sleep boosts participation, sleep deprivation "
-            "correlates with reduced attendance."
+            "An observation suggests that the clusters of very low motivation students and 5 hours of sleep have the highest average attendance, "
+            "with the darkest blue segment exhibited in the heatmap. We might think that very low motivation corresponds with poor attendance usually, "
+            "but this may be an anomaly arising from a small size of samples recorded for this category that could have inflated averages."
         ),
+
+        html.P(
+            "The four corners of the chart have also seen some attendance at the higher side for the medium motivation students who have 7-hour long sleep; "
+            "this is much more intuitive—whether a bit of motivation and one full-night sleep is enough to ensure on-time participation. "
+            "Another contrasting phenomenon is that highly motivated students do not always manage to outperform those with medium motivation. "
+            "Several parameter combinations with high motivation (especially with very short sleep) fall into below-average or average attendance categories, "
+            "suggesting that motivation alone may not be enough for class members to build up consistent participation."
+        ),
+
+        html.P(
+            "Overall, the chart presents far-from-linear evidence in favor of attendance and sleep. Moderate sleep (about 6 to 8 hours) has been correlated "
+            "with the highest attendance levels and fewer variances in attendance levels. Too little or too much sleep, on the other hand, can be detrimental "
+            "to attendance. The interaction of motivation with sleep remains a convoluted one: neither high motivation nor long sleeping hours guarantee attendance, "
+            "whereas balanced sleep combined with moderate motivation appears to be the most stable predictor."
+        ),
+
      html.Div([
         dcc.Graph(figure=sleep_heatmap.get_sleep_motivation_heatmap())
         ], style={"display": "flex", "justifyContent": "center"}),
@@ -209,7 +228,7 @@ html.Div([
     html.P(
         "In the end, helping students succeed means looking at the full picture, and making sure no one is left behind."
     )
-], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center"})
+], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center", "marginLeft": "auto", "marginRight": "auto"}),
 
 
 
