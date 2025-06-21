@@ -46,7 +46,7 @@ def get_binary_disability_heatmap():
          
             dominant_group = pivot.at[score_bin, sessions] if sessions in pivot.columns else "No data"
             
-            score_range = f"{score_bin}-{score_bin+5} points"
+            score_range = f"{score_bin-2.5}-{score_bin+2.5} points"
             row.append(
                 f"Tutoring Sessions: {sessions} sessions<br>"
                 f"Exam Score Range: {score_range}<br>"
