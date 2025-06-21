@@ -22,19 +22,20 @@ def get_sleep_motivation_heatmap():
     count_pivot = count_pivot.reindex(ordered_levels)
 
     fig = go.Figure(data=go.Heatmap(
-        z=avg_pivot.values,
-        x=avg_pivot.columns.tolist(),
-        y=avg_pivot.index.tolist(),
-        customdata=count_pivot.values,
-        colorscale="Blues",
-        colorbar=dict(title="Average Attendance"),
-        hovertemplate=(
-            "Sleep Hours: %{x}<br>"
-            "Motivation: %{y}<br>"
-            "Avg Attendance: %{z:.2f}<br>"
-            "Students: %{customdata}<extra></extra>"
-        )
-    ))
+    z=avg_pivot.values,
+    x=avg_pivot.columns.tolist(),
+    y=avg_pivot.index.tolist(),
+    customdata=count_pivot.values,
+    colorscale="Blues",
+    colorbar=dict(title="Average Attendance"),
+    hovertemplate=(
+        "Sleep Duration (rounded): %{x} h<br>"
+        "Motivation Level: %{y}<br>"
+        "Average Attendance: %{z:.2f}<br>"
+        "Number of Students: %{customdata}<extra></extra>"
+    )
+))
+
 
     fig.update_layout(
         title="Average Attendance by Sleep and Motivation",

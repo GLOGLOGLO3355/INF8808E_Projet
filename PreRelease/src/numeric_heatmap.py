@@ -30,15 +30,6 @@ def get_binary_disability_heatmap():
     y_labels = list(pivot.index[::-1])
     x_labels = list(pivot.columns)
 
-    hover_text = []
-    for y in y_labels:
-        row = []
-        for x in x_labels:
-            dominant = pivot.at[y, x] if x in pivot.columns else "N/A"
-            interval = f"{y-2.5}-{y+2.5}"
-            row.append(f"Tutoring: {x}<br>Score: {interval}<br>Dominant: {dominant}")
-        hover_text.append(row)
-
     color_scale = [
         [0.0, "crimson"],
         [0.33, "crimson"],
@@ -47,6 +38,21 @@ def get_binary_disability_heatmap():
         [0.67, "lightgrey"],
         [1.0, "lightgrey"]
     ]
+    
+    hover_text = []
+    for score_bin in y_labels:
+        row = []
+        for sessions in x_labels:
+         
+            dominant_group = pivot.at[score_bin, sessions] if sessions in pivot.columns else "No data"
+            
+            score_range = f"{score_bin}-{score_bin+5} points"
+            row.append(
+                f"Tutoring Sessions: {sessions} sessions<br>"
+                f"Exam Score Range: {score_range}<br>"
+                f"Predominant Group: {dominant_group}"
+            )
+        hover_text.append(row)
 
     heatmap = go.Heatmap(
         z=z_matrix,
@@ -55,14 +61,34 @@ def get_binary_disability_heatmap():
         colorscale=color_scale,
         showscale=False,
         text=hover_text,
-        hoverinfo="text"
+        hoverinfo="text"   
     )
 
+    
     legend_items = [
-        go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=10, color="crimson"), name="Disability"),
-        go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=10, color="royalblue"), name="No Disability"),
-        go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=10, color="lightgrey"), name="Equal")
-    ]
+    go.Scatter(
+        x=[None],
+        y=[None],
+        mode='markers',
+        marker=dict(size=10, color='crimson'),
+        name='Disability'
+    ),
+    go.Scatter(
+        x=[None],
+        y=[None],
+        mode='markers',
+        marker=dict(size=10, color='royalblue'),
+        name='No Disability'
+    ),
+    go.Scatter(
+        x=[None],
+        y=[None],
+        mode='markers',
+        marker=dict(size=10, color='lightgrey'),
+        name='Equal'
+    )
+]
+
 
     fig = go.Figure(data=[heatmap] + legend_items)
 
