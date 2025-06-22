@@ -18,19 +18,19 @@ app.title = 'Pre-Release | INF8808'
 
 app.layout = html.Div(
     children=[
-        html.H1("Demo Release – INF8808E – Summer 2025"),
+        html.H1("Final Release – INF8808E – Summer 2025"),
 
     html.Div([
         html.H2("Understanding Academic Performance: A Data-Driven Exploration"),
         html.P(
             "Understanding how various factors affect academic performance can be challenging. "
-            "Where some influences such as study hours or past exam scores work directly and measurably, "
-            "other factors (could be parental support, motivation, sleep, or socioeconomic background) are equally influential."
+            "Some influences such as study hours or past exam scores work directly and measurably, "
+            "other factors (could be parental support, motivation, sleep, or socioeconomic background) are also influential."
         ),
         html.P([
             "This interactive dashboard explores these multifaceted relationships with synthetic and yet plausible student data. "
             "The dataset, found here on Kaggle, comprises 6 607 entries and 20 variables that reflect a wide range of academic, "
-            "behavioral, and contextual traits, including study habits, family income, school type, peer influence, parental education, "
+            "behavioural, and contextual traits, including study habits, family income, school type, peer influence, parental education, "
             "and learning disabilities.",
             html.Br(),
             html.A(" View the dataset on Kaggle",
