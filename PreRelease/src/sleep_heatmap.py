@@ -30,7 +30,7 @@ def get_sleep_motivation_heatmap():
             row.append(
                 f"Sleep Duration (rounded): {x} h<br>"
                 f"Motivation Level: {y}<br>"
-                f"Average Attendance: {avg_data[i][j]:.2f}<br>"
+                f"Average Attendance (%): {avg_data[i][j]:.2f}<br>"
                 f"Number of Students: {count_data[i][j]}"
             )
         hovertext.append(row)
@@ -40,7 +40,7 @@ def get_sleep_motivation_heatmap():
         x=avg_pivot.columns.tolist(),
         y=avg_pivot.index.tolist(),
         colorscale="Blues",
-        colorbar=dict(title="Average Attendance"),
+        colorbar=dict(title="Average Attendance (%)"),
         hoverinfo="text",
         text=hovertext
     ))
