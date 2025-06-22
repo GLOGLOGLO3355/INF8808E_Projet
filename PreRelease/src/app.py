@@ -25,7 +25,7 @@ app.layout = html.Div(
         html.P(
             "Understanding how various factors affect academic performance can be challenging. "
             "Where some influences such as study hours or past exam scores work directly and measurably, "
-            "other factors—could be parental support, motivation, sleep, or socioeconomic background—are equally influential."
+            "other factors (could be parental support, motivation, sleep, or socioeconomic background) are equally influential."
         ),
         html.P([
             "This interactive dashboard explores these multifaceted relationships with synthetic and yet plausible student data. "
@@ -60,12 +60,14 @@ app.layout = html.Div(
                 "Parents who have 'High' levels of involvement sit at roughly the same levels over the three education categories, with slight variations: 28.7% for high school, 29.9% for university, and 28% for postgraduate. "
                 "In other words, it is not the case that high school parents are much less involved or that parents who are postgraduates are highly involved. "
                 "The lowest scale, 'Low,' meets some 20% over all the categories with minimal fluctuation. That means parents with higher education do not necessarily ensure it's less likely that they will be Low-involved parents."
+                " These findings suggest that parental involvement may depend more on lifestyle, availability, or personal attitudes toward education than on educational attainment alone."
             ),
 
             html.P(
                 "Overall, this visualization challenges the assumption that more educated parents are necessarily more engaged. "
                 "Instead, it points to a relatively uniform distribution of parental involvement, regardless of education level. "
                 "This may imply that other factors (such as work schedules, cultural values, or access to school communities) could be just as influential as formal education in shaping parental support behaviors."
+                " Future research could investigate how cultural norms or work-life balance contribute to these patterns, especially in households with dual-income or immigrant backgrounds."
             )
 
         ], style={"maxWidth": "800px", "marginBottom": "30px"}),
@@ -86,6 +88,8 @@ app.layout = html.Div(
                 "and attend many tutoring sessions achieve the most marked improvement in their current scores compared to their previous scores. "
                 "This suggests that combining extensive study with tutoring can significantly drive academic improvement, offering valuable insights "
                 "for students, parents and school organizations aiming to optimize academic growth."
+                " The scatter plot also highlights an important ceiling effect: students with very high past scores see limited score improvement, "
+                "reinforcing the idea that tutoring and study time benefit those still on a learning curve more than top performers."
             ),
             dcc.Dropdown(
                 id="tutoring-filter",
@@ -101,6 +105,10 @@ app.layout = html.Div(
             html.P(
                 "These two graphs isolate the individual effects of tutoring and study hours on score improvement. "
                 "We calculate the score difference (final - previous) and show how it varies depending on each factor."
+            ),
+            html.P(
+                "Interestingly, while both factors contribute positively, the distribution is skewed: for example, students receiving 6+ tutoring sessions show a broader range of improvement,"
+                "possibly indicating variability in the quality of tutoring or the student’s ability to absorb it."
             ),
             html.H4("Score Improvement by Tutoring Sessions"),
             dcc.Graph(figure=score_improvement.get_by_tutoring()),
@@ -131,6 +139,7 @@ app.layout = html.Div(
             "disabilities may need to invest more effort in tutoring to address their challenges, the academic results they achieve "
             "can vary widely, underscoring the need for personalized support strategies to help them achieve more consistent and "
             "improved outcomes."
+            " This contrast invites questions about the type and delivery method of tutoring received. Are students with learning disabilities receiving the same instructional quality? Or is a different approach needed to truly meet their needs?"
         ),
         dcc.Graph(figure=numeric_heatmap.get_binary_disability_heatmap())
     ], style={"maxWidth": "1000px", "marginTop": "50px"}),
@@ -140,6 +149,9 @@ app.layout = html.Div(
     html.P(
         "This dendrogram visualizes the similarity between students based on key performance indicators such as study hours, "
         "past exam scores, and tutoring sessions. It helps identify natural clusters or groups of students with similar academic behaviors."
+    ),
+    html.P(
+        "These groupings can be used to tailor interventions: for example, students in the same motivational cluster might benefit from group mentoring or shared study routines."
     ),
     html.Div([
         dcc.Graph(figure=dendrogram.get_tree_plot())

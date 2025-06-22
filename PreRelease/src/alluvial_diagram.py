@@ -15,11 +15,17 @@ def categorize_score(score):
     else:
         return "Low"
 
+def format_label(label):
+    return label.replace("_", " ")
+
 def generate_labels(df, cols):
     labels = []
     for col in cols:
         unique_vals = df[col].unique()
-        labels.extend([f"{col}: {val}" for val in unique_vals if f"{col}: {val}" not in labels])
+        for val in unique_vals:
+            formatted = f"{format_label(col)}: {val}"
+            if formatted not in labels:
+                labels.append(formatted)
     return labels
 
 def hex_to_rgba(hex_color, alpha=0.8):
@@ -30,20 +36,19 @@ def hex_to_rgba(hex_color, alpha=0.8):
 def build_category_color_map(df, cols):
     all_categories = []
     for col in cols:
-        all_categories += [f"{col}: {val}" for val in df[col].unique()]
+        all_categories += [f"{format_label(col)}: {val}" for val in df[col].unique()]
     palette = px.colors.qualitative.Plotly
     extended_palette = (palette * ((len(all_categories) // len(palette)) + 1))[:len(all_categories)]
     rgba_palette = [hex_to_rgba(c) for c in extended_palette]
     return dict(zip(all_categories, rgba_palette))
-
 
 def build_links(df, cols, labels, category_color_map):
     source, target, values, colors = [], [], [], []
     for i in range(len(cols) - 1):
         pair_counts = df.groupby([cols[i], cols[i + 1]]).size().reset_index(name="count")
         for _, row in pair_counts.iterrows():
-            src_label = f"{cols[i]}: {row[cols[i]]}"
-            tgt_label = f"{cols[i + 1]}: {row[cols[i + 1]]}"
+            src_label = f"{format_label(cols[i])}: {row[cols[i]]}"
+            tgt_label = f"{format_label(cols[i + 1])}: {row[cols[i + 1]]}"
             source.append(labels.index(src_label))
             target.append(labels.index(tgt_label))
             values.append(row["count"])

@@ -17,7 +17,7 @@ def get_grouped_bar_chart():
 
     counts = df.groupby(["Education_Label", "Parental_Involvement"]).size().reset_index(name="Count")
     total_per_edu = counts.groupby("Education_Label")["Count"].transform("sum")
-    counts["Percentage"] = counts["Count"] / total_per_edu * 100
+    counts["Percentage"] = (counts["Count"] / total_per_edu * 100).round(1)
 
     fig = px.bar(
         counts,
