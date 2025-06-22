@@ -11,7 +11,20 @@ def get_by_tutoring():
         x="Tutoring_Sessions",
         y="Score_Improvement",
         points="all",
-        title="Score Improvement by Number of Tutoring Sessions"
+        title="Score Improvement by Number of Tutoring Sessions",
+        hover_data={
+            "Tutoring_Sessions": True,
+            "Score_Improvement": True,
+            "Exam_Score": True,
+            "Previous_Scores": True,
+            "Hours_Studied": False
+        },
+        labels={
+            "Tutoring_Sessions": "Monthly Tutoring Sessions",
+            "Score_Improvement": "Improvement in Score",
+            "Exam_Score": "Final Exam Score",
+            "Previous_Scores": "Previous Test Score"
+        }
     )
 
     fig.update_layout(
@@ -32,7 +45,20 @@ def get_by_study_hours():
         x="Hours_Studied",
         y="Score_Improvement",
         points="all",
-        title="Score Improvement by Weekly Study Hours"
+        title="Score Improvement by Weekly Study Hours",
+        hover_data={
+            "Hours_Studied": True,
+            "Score_Improvement": True,
+            "Exam_Score": True,
+            "Previous_Scores": True,
+            "Tutoring_Sessions": False 
+        },
+        labels={
+            "Hours_Studied": "Weekly Study Hours",
+            "Score_Improvement": "Improvement in Score",
+            "Exam_Score": "Final Exam Score",
+            "Previous_Scores": "Previous Test Score"
+        }
     )
 
     fig.update_layout(

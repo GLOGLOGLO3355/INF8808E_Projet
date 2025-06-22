@@ -237,17 +237,6 @@ app.layout = html.Div(
             "may have more nuanced behaviors and non-linear relationships. At the very least, these variations are of critical importance for some groups (such as people with learning disabilities "
             "or disadvantaged people from lower socioeconomic backgrounds) who need to be targeted to achieve even results."
         ),
-        html.P(
-            "This dashboard reveals patterns that are not only statistically relevant but also practically meaningful. "
-            "The insights provided by this website and dataset can enable policymakers and educators and parents to develop academic support strategies "
-            "which promote inclusion and equity and improve their effectiveness. The data points towards essential approaches which include "
-            "maintaining motivation-rest balance/customized tutoring methods and question traditional beliefs about socioeconomic and educational advantages."
-        ),
-        html.P(
-            "Education systems that rely on data will find value in this dashboard to develop interventions which surpass gut feelings to use "
-            "evidence-based methods that understand both individual differences and complex system dynamics. Our capability to analyze and link "
-            "multidimensional insights for action will determine the future direction of academic achievement."
-        )
     ], style={"maxWidth": "800px", "marginTop": "80px", "marginBottom": "80px", "textAlign": "center", "marginLeft": "auto", "marginRight": "auto"})
 
 
