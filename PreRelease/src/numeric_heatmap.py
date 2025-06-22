@@ -2,27 +2,41 @@ import pandas as pd
 import preprocess
 import plotly.graph_objects as go
 
+
 def get_binary_disability_heatmap():
     df = preprocess.load_data()
     df = df.dropna(subset=["Tutoring_Sessions", "Exam_Score", "Learning_Disabilities"])
 
-    df["Disability_Status"] = df["Learning_Disabilities"].map({
-        "Yes": "Disability",
-        "No": "No Disability"
-    })
+    df["Disability_Status"] = df["Learning_Disabilities"].map(
+        {"Yes": "Disability", "No": "No Disability"}
+    )
 
     df["Tutoring_Sessions"] = df["Tutoring_Sessions"].astype(int)
     df["Exam_Score_Bin"] = (df["Exam_Score"] // 5) * 5
 
-    grouped = df.groupby(["Tutoring_Sessions", "Exam_Score_Bin", "Disability_Status"]).size().unstack(fill_value=0).reset_index()
-
-    grouped["Dominant"] = grouped.apply(
-        lambda row: "Disability" if row.get("Disability", 0) > row.get("No Disability", 0)
-        else "No Disability" if row.get("Disability", 0) < row.get("No Disability", 0)
-        else "Equal", axis=1
+    grouped = (
+        df.groupby(["Tutoring_Sessions", "Exam_Score_Bin", "Disability_Status"])
+        .size()
+        .unstack(fill_value=0)
+        .reset_index()
     )
 
-    pivot = grouped.pivot(index="Exam_Score_Bin", columns="Tutoring_Sessions", values="Dominant")
+    grouped["Dominant"] = grouped.apply(
+        lambda row: (
+            "Disability"
+            if row.get("Disability", 0) > row.get("No Disability", 0)
+            else (
+                "No Disability"
+                if row.get("Disability", 0) < row.get("No Disability", 0)
+                else "Equal"
+            )
+        ),
+        axis=1,
+    )
+
+    pivot = grouped.pivot(
+        index="Exam_Score_Bin", columns="Tutoring_Sessions", values="Dominant"
+    )
     pivot = pivot.sort_index(ascending=True)
 
     category_to_value = {"Disability": 0, "No Disability": 1, "Equal": 2}
@@ -36,16 +50,20 @@ def get_binary_disability_heatmap():
         [0.34, "royalblue"],
         [0.66, "royalblue"],
         [0.67, "lightgrey"],
-        [1.0, "lightgrey"]
+        [1.0, "lightgrey"],
     ]
-    
+
     hover_text = []
     for score_bin in y_labels:
         row = []
         for sessions in x_labels:
-         
-            dominant_group = pivot.at[score_bin, sessions] if sessions in pivot.columns else "No data"
-            
+
+            dominant_group = (
+                pivot.at[score_bin, sessions]
+                if sessions in pivot.columns
+                else "No data"
+            )
+
             score_range = f"{score_bin-2.5}-{score_bin+2.5} points"
             row.append(
                 f"Tutoring Sessions: {sessions} sessions<br>"
@@ -61,34 +79,32 @@ def get_binary_disability_heatmap():
         colorscale=color_scale,
         showscale=False,
         text=hover_text,
-        hoverinfo="text"   
+        hoverinfo="text",
     )
 
-    
     legend_items = [
-    go.Scatter(
-        x=[None],
-        y=[None],
-        mode='markers',
-        marker=dict(size=10, color='crimson'),
-        name='Disability'
-    ),
-    go.Scatter(
-        x=[None],
-        y=[None],
-        mode='markers',
-        marker=dict(size=10, color='royalblue'),
-        name='No Disability'
-    ),
-    go.Scatter(
-        x=[None],
-        y=[None],
-        mode='markers',
-        marker=dict(size=10, color='lightgrey'),
-        name='Equal'
-    )
-]
-
+        go.Scatter(
+            x=[None],
+            y=[None],
+            mode="markers",
+            marker=dict(size=10, color="crimson"),
+            name="Disability",
+        ),
+        go.Scatter(
+            x=[None],
+            y=[None],
+            mode="markers",
+            marker=dict(size=10, color="royalblue"),
+            name="No Disability",
+        ),
+        go.Scatter(
+            x=[None],
+            y=[None],
+            mode="markers",
+            marker=dict(size=10, color="lightgrey"),
+            name="Equal",
+        ),
+    ]
 
     fig = go.Figure(data=[heatmap] + legend_items)
 
@@ -102,22 +118,16 @@ def get_binary_disability_heatmap():
             tickmode="array",
             tickvals=list(range(0, 9)),
             ticktext=[str(i) for i in range(0, 9)],
-            range=[-0.5, 8.5]
+            range=[-0.5, 8.5],
         ),
         yaxis=dict(
             tickmode="array",
             tickvals=list(range(50, 105, 5))[::-1],
             ticktext=[str(y) for y in range(50, 105, 5)][::-1],
             range=[53, 102],
-            autorange=False
+            autorange=False,
         ),
-        legend=dict(
-            orientation="v",
-            yanchor="top",
-            y=0.98,
-            xanchor="left",
-            x=1.02
-        )
+        legend=dict(orientation="v", yanchor="top", y=0.98, xanchor="left", x=1.02),
     )
 
     return fig

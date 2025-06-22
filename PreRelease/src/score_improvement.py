@@ -1,6 +1,7 @@
 import plotly.express as px
 import preprocess
 
+
 def get_by_tutoring():
     df = preprocess.load_data()
     df = df.dropna(subset=["Previous_Scores", "Exam_Score", "Tutoring_Sessions"])
@@ -17,19 +18,19 @@ def get_by_tutoring():
             "Score_Improvement": True,
             "Exam_Score": True,
             "Previous_Scores": True,
-            "Hours_Studied": False
+            "Hours_Studied": False,
         },
         labels={
             "Tutoring_Sessions": "Monthly Tutoring Sessions",
             "Score_Improvement": "Improvement in Score",
             "Exam_Score": "Final Exam Score",
-            "Previous_Scores": "Previous Test Score"
-        }
+            "Previous_Scores": "Previous Test Score",
+        },
     )
 
     fig.update_layout(
         xaxis_title="Tutoring Sessions per Month",
-        yaxis_title="Score Improvement (Exam - Previous)"
+        yaxis_title="Score Improvement (Exam - Previous)",
     )
 
     return fig
@@ -51,19 +52,19 @@ def get_by_study_hours():
             "Score_Improvement": True,
             "Exam_Score": True,
             "Previous_Scores": True,
-            "Tutoring_Sessions": False 
+            "Tutoring_Sessions": False,
         },
         labels={
             "Hours_Studied": "Weekly Study Hours",
             "Score_Improvement": "Improvement in Score",
             "Exam_Score": "Final Exam Score",
-            "Previous_Scores": "Previous Test Score"
-        }
+            "Previous_Scores": "Previous Test Score",
+        },
     )
 
     fig.update_layout(
         xaxis_title="Hours Studied per Week",
-        yaxis_title="Score Improvement (Exam - Previous)"
+        yaxis_title="Score Improvement (Exam - Previous)",
     )
 
     return fig

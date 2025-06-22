@@ -2,11 +2,16 @@ import pandas as pd
 import plotly.graph_objects as go
 import preprocess
 
+
 def get_tree_plot():
     df = preprocess.load_data()
     df = df.dropna(subset=["Peer_Influence", "Distance_from_Home", "Motivation_Level"])
 
-    grouped = df.groupby(["Peer_Influence", "Distance_from_Home", "Motivation_Level"]).size().reset_index(name="Count")
+    grouped = (
+        df.groupby(["Peer_Influence", "Distance_from_Home", "Motivation_Level"])
+        .size()
+        .reset_index(name="Count")
+    )
 
     peer_values = sorted(df["Peer_Influence"].unique())
     distance_values = sorted(df["Distance_from_Home"].unique())
@@ -44,7 +49,9 @@ def get_tree_plot():
             x_dist = x_peer + x_gap
             dist_id = f"Peer_{peer}_Dist_{dist}"
             positions[dist_id] = (x_dist, y_dist_center)
-            nodes.append(dict(id=dist_id, label=dist, x=x_dist, y=y_dist_center, size=10))
+            nodes.append(
+                dict(id=dist_id, label=dist, x=x_dist, y=y_dist_center, size=10)
+            )
             edges.append((peer_id, dist_id))
 
             for mot in motivation_values:
@@ -55,7 +62,9 @@ def get_tree_plot():
                     "Peer_Influence == @peer and Distance_from_Home == @dist and Motivation_Level == @mot"
                 )["Count"].sum()
                 positions[leaf_id] = (x_leaf, y_leaf)
-                nodes.append(dict(id=leaf_id, label=mot, x=x_leaf, y=y_leaf, size=count))
+                nodes.append(
+                    dict(id=leaf_id, label=mot, x=x_leaf, y=y_leaf, size=count)
+                )
                 edges.append((dist_id, leaf_id))
                 y_start += y_inner
 
@@ -63,29 +72,32 @@ def get_tree_plot():
     for src, dst in edges:
         x0, y0 = positions[src]
         x1, y1 = positions[dst]
-        edge_traces.append(go.Scatter(
-            x=[x0, x1], y=[y0, y1],
-            mode='lines',
-            line=dict(color='lightgrey'),
-            hoverinfo='none',
-            showlegend=False
-        ))
+        edge_traces.append(
+            go.Scatter(
+                x=[x0, x1],
+                y=[y0, y1],
+                mode="lines",
+                line=dict(color="lightgrey"),
+                hoverinfo="none",
+                showlegend=False,
+            )
+        )
 
     node_trace = go.Scatter(
         x=[n["x"] for n in nodes],
         y=[n["y"] for n in nodes],
-        mode='markers+text',
+        mode="markers+text",
         text=[n["label"] for n in nodes],
         textposition="middle right",
         marker=dict(
             size=[max(n["size"], 8) for n in nodes],
-            color=['green' if n["x"] == x_gap * 3 else 'lightgrey' for n in nodes],
-            sizemode='area',
-            sizeref=2.*max([n["size"] for n in nodes])/40**2 if nodes else 1,
-            sizemin=6
+            color=["green" if n["x"] == x_gap * 3 else "lightgrey" for n in nodes],
+            sizemode="area",
+            sizeref=2.0 * max([n["size"] for n in nodes]) / 40**2 if nodes else 1,
+            sizemin=6,
         ),
-        hoverinfo='text',
-        showlegend=False
+        hoverinfo="text",
+        showlegend=False,
     )
 
     fig = go.Figure(data=edge_traces + [node_trace])
@@ -95,6 +107,6 @@ def get_tree_plot():
         yaxis=dict(showgrid=False, zeroline=False, visible=False),
         height=total_height + 100,
         width=1200,
-        showlegend=False
+        showlegend=False,
     )
     return fig

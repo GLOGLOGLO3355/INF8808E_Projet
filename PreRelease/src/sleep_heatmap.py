@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import preprocess
 import numpy as np
 
+
 def get_sleep_motivation_heatmap():
     df = preprocess.load_data()
     df = df.dropna(subset=["Sleep_Hours", "Motivation_Level", "Attendance"])
@@ -10,14 +11,28 @@ def get_sleep_motivation_heatmap():
 
     ordered_levels = ["Low", "Medium", "High"]
     df = df[df["Motivation_Level"].isin(ordered_levels)]
-    df["Motivation_Level"] = pd.Categorical(df["Motivation_Level"], categories=ordered_levels, ordered=True)
+    df["Motivation_Level"] = pd.Categorical(
+        df["Motivation_Level"], categories=ordered_levels, ordered=True
+    )
 
-    avg_attendance = df.groupby(["Motivation_Level", "Sleep_Hours_Int"])["Attendance"].mean().reset_index()
-    avg_pivot = avg_attendance.pivot(index="Motivation_Level", columns="Sleep_Hours_Int", values="Attendance")
+    avg_attendance = (
+        df.groupby(["Motivation_Level", "Sleep_Hours_Int"])["Attendance"]
+        .mean()
+        .reset_index()
+    )
+    avg_pivot = avg_attendance.pivot(
+        index="Motivation_Level", columns="Sleep_Hours_Int", values="Attendance"
+    )
     avg_pivot = avg_pivot.reindex(ordered_levels)
 
-    counts = df.groupby(["Motivation_Level", "Sleep_Hours_Int"]).size().reset_index(name="Count")
-    count_pivot = counts.pivot(index="Motivation_Level", columns="Sleep_Hours_Int", values="Count")
+    counts = (
+        df.groupby(["Motivation_Level", "Sleep_Hours_Int"])
+        .size()
+        .reset_index(name="Count")
+    )
+    count_pivot = counts.pivot(
+        index="Motivation_Level", columns="Sleep_Hours_Int", values="Count"
+    )
     count_pivot = count_pivot.reindex(ordered_levels)
 
     avg_data = np.nan_to_num(avg_pivot.values, nan=0)
@@ -35,22 +50,24 @@ def get_sleep_motivation_heatmap():
             )
         hovertext.append(row)
 
-    fig = go.Figure(data=go.Heatmap(
-        z=avg_data,
-        x=avg_pivot.columns.tolist(),
-        y=avg_pivot.index.tolist(),
-        colorscale="Blues",
-        colorbar=dict(title="Average Attendance (%)"),
-        hoverinfo="text",
-        text=hovertext
-    ))
+    fig = go.Figure(
+        data=go.Heatmap(
+            z=avg_data,
+            x=avg_pivot.columns.tolist(),
+            y=avg_pivot.index.tolist(),
+            colorscale="Blues",
+            colorbar=dict(title="Average Attendance (%)"),
+            hoverinfo="text",
+            text=hovertext,
+        )
+    )
 
     fig.update_layout(
         title="Average Attendance by Sleep and Motivation",
         xaxis_title="Sleep Hours",
         yaxis_title="Motivation Level",
         height=600,
-        width=800
+        width=800,
     )
 
     return fig
