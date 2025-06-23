@@ -38,3 +38,5 @@ Inside the src folder, run the following command:
 
 Then open your browser and go to:
 http://127.0.0.1:8050
+
+## Please note that the folder named PreRelease contains the version of the Final Release. 
